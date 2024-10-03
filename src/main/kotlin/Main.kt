@@ -1,24 +1,44 @@
+@file:Suppress("SpellCheckingInspection")
+
+import java.lang.Exception
+
+
 fun main() {
-    var garage = Garage()
-    var car = Voiture("Mercedes", 2014, "Noir", 5)
-    var bike = Moto("Harley-Davidson", 1972, "Orange", true)
-    var truck = Camion("Ford", 2000, "Blanc", 77)
+    val garage = Garage()
+    val car = Voiture("Mercedes", 2014, "Noir", 5)
+    val bike = Moto("Harley-Davidson", 1972, "Orange", true)
+    val truck = Camion("Ford", 2000, "Blanc", 77)
     garage.ajouterVehicule(car)
     garage.ajouterVehicule(bike)
     garage.ajouterVehicule(truck)
     garage.afficherGarage()
+    garage.afficherNGarage()
+    garage.afficherGarage(0)
+    garage.klaxonner(0)
+    garage.afficherGarage(3)
+    garage.klaxonner(3)
 }
 
 class Garage{
-    var listeVehicule = mutableListOf<Vehicule>()
+    private var listeVehicule = mutableListOf<Vehicule>()
     fun ajouterVehicule(vehicule: Vehicule){
         listeVehicule.add(vehicule)
+    }
+    fun afficherNGarage(){
+        println("Le garage contient ${listeVehicule.size} véhicules")
     }
     fun afficherGarage(){
         for (i in 1..listeVehicule.size){
             listeVehicule[i-1].afficherDetails()
-            listeVehicule[i-1].klaxonner()
         }
+    }
+    fun afficherGarage(index: Int){
+        if(index < 0 || index >= listeVehicule.size){ println("Vehicule non valide") }
+        else listeVehicule[index].afficherDetails()
+    }
+    fun klaxonner(index: Int){
+        if(index < 0 || index >= listeVehicule.size){ println("Vehicule non valide") }
+        else listeVehicule[index].klaxonner()
     }
 }
 abstract class Vehicule(open var marque: String, open var annee: Int, open var couleur: String){
